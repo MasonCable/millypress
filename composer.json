@@ -1,0 +1,13 @@
+{
+    "name": "mason/millypress",
+    "description": "A package that is meant to help users automate their wordpress and system security by checking for known vulnerabilities against a list of packages and plugins provided",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Mason\\Millypress\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {}    
+}
