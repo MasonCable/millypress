@@ -9,5 +9,7 @@
         }
     },
     "minimum-stability": "dev",
-    "require": {}    
+    "require": {
+        "guzzlehttp/guzzle": "7.4.x-dev"
+    }    
 }
