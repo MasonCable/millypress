@@ -4,18 +4,15 @@ namespace Mason\Millypress;
 
 class Scan
 {
-    public function __construct(string $url, $websiteList = false)
-    {   
-        $this->url = $url;        
-        $this->websiteList = $websiteList;
-        $this->outputFile = 'wpscanOutput.json';        
-    }
+    private $outputFile = 'wpscanOutput.json';
 
-    public function scan()
-    { 
-        if($this->websiteList) $this->scanMany();
-
-        $command = exec('wpscan --url '.$this->url.' vp --output '.$this->outputFile.' --format json');
+    
+    /**
+     * This function will return the 
+     */
+    public function scan($url)
+    {         
+        $command = exec('wpscan --url '.$url.' vp --output '.$this->outputFile.' --format json');
         $jsonData = file_get_contents($this->outputFile);
         $returnJson = json_decode($jsonData, true);
         exec('rm '.$this->outputFile);
@@ -23,10 +20,22 @@ class Scan
         return $returnJson;
     }
 
-    private function scanMany()
+    /**
+     * This is an optional function that will update the model based the $data provided
+     *  The data should be formated like so:
+     * @return update $Model
+     */
+    public function updateModel($model, $data)
     {
-        for($i = 0; $i < count($this->websiteList); $i++){
-            $command = exec('wpscan --url '.$this->url.' vp --output '.$this->outputFile.' --format json');            
+
+    }
+
+    public function scanMany($websiteList)
+    {
+        for($i = 0; $i < count($websiteList); $i++){
+            // $command = exec('wpscan --url '.$url.' vp --output '.$outputFile.' --format json');            
         }
     }
+
+    
 }
