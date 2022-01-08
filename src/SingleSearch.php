@@ -2,18 +2,17 @@
 
 namespace Mason\Millypress;
 
-use GuzzleHttp\Client as GuzzleClient;
-
-class Bot
+class SingleSearch
 {
     private $baseApiUrl = 'https://patchstack.com/database/api/v2/';
 
-    public function __construct($platform, $packageName, $type, $returnJsonStr = false)
+    public function __construct($type, $name, $version, $exists = true,$returnJsonStr = false)
     {        
-        $this->platform = $platform; // The platform should always be something link Wordpress, node, npm ...
-        $this->packageName = $packageName; // This will be the exact name of the package
-        $this->type = $type; // This will be if it is a plugin, package or a theme
+        $this->type = $type; // Type = theme, plugin, wordpress
+        $this->name = $name; // Name = Slug of the theme, slug of the plugin, or "wordpress" in case type is set to wordpress
         $this->returnJsonStr = $returnJsonStr; // By default we return a php array
+        $this->version = $version; // Version will check for specific vulnerabilities
+        $this->exists = $exists; // Optional flag that will no return all vulnerabiliteis, but only a boolean response whether or not there are vulnerabilites. This flag will reult in a faster response.
         $this->baseStr = 'searchsploit';
         $this->config = require __DIR__.'/../config/index.php';        
     }
@@ -22,22 +21,12 @@ class Bot
      * This function takes in the init variables and creates a command to run on the host machine. 
      *  The user will recieve a json 
      */
-    public function search()
+    public function searchExploitDb()
     {        
-        $strWData = $this->baseStr.' '.$this->platform.' '.$this->type.' '.$this->packageName;
-        $fileName = $this->platform.'-'.$this->type.'-'.$this->packageName.'.json';
-        $finalStr = $strWData.' -j -w > '.$fileName;
         
-        $exec = exec($finalStr);        
-        $jsonStr = file_get_contents($fileName);        
-        $removeFile = exec('rm '.$fileName);
-        
-        return ($this->returnJsonStr) 
-                ? $jsonStr 
-                : json_decode($jsonStr, true);
     }
 
-    public function searchPatchStack()
+    public function searchPatchstack()
     {
         $apiKey = $this->config['patchstack_api'];
         $baseUrl = $this->baseApiUrl;
@@ -59,6 +48,11 @@ class Bot
         curl_close($ch);
         return [$response, $httpcode];
                 
+    }
+
+    public function test()
+    {
+        return "The test worked";
     }
 
 
