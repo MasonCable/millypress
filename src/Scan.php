@@ -8,7 +8,10 @@ class Scan
 
     
     /**
-     * This function will return the 
+     * This function will return the output of ```wpscan --url example.com vp --output outputFile.json --format json ```
+     * in JSON format
+     * 
+     * @return Json
      */
     public function scan($url)
     {         
@@ -23,6 +26,7 @@ class Scan
     /**
      * This is an optional function that will update the model based the $data provided
      *  The data should be formated like so:
+     * 
      * @return update $Model
      */
     public function updateModel($model, $data)
@@ -30,6 +34,12 @@ class Scan
 
     }
 
+    /**
+     * This function takes in a list of websites and will run the following command ```wpscan --url example.com vp --output outputFile.json --format json ```
+     * on each item in the array and then update their associative model
+     * 
+     * @return update $model
+     */
     public function scanMany($websiteList)
     {
         for($i = 0; $i < count($websiteList); $i++){
