@@ -15,7 +15,7 @@ class Bot
 
      public function __construct()
      {
-        
+
      }
 
     /**
@@ -24,6 +24,16 @@ class Bot
      * @return string
      */
      public function runScan()
+     {
+
+     }
+
+     private function getPluginsThemes($url)
+     {
+
+     }
+
+     private function checkVulnerabilites($package)
      {
 
      }
