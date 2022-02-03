@@ -2,3 +2,4 @@
 /config/
 *composer.lock
 /test/
+/data/

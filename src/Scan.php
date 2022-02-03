@@ -22,7 +22,7 @@ class Scan
 
         return $returnJson;
     }
-
+    
     /**
      * This is an optional function that will update the model based the $data provided
      *  The data should be formated like so:

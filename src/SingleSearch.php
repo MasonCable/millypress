@@ -55,6 +55,13 @@ class SingleSearch
         return "The test worked";
     }
 
+    /**
+     * Returns user with vulnerability data from a specific plugin
+     */
+    public function wpscanApi()
+    {
+
+    }
 
 
     /**
