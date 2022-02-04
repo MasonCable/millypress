@@ -2,6 +2,12 @@
 
 namespace Mason\Millypress\Wordpress;
 
+class Response
+{
+    public $results;
+    public $code;
+}
+
 class Scan
 {
     private $output_file = 'wpscan-output.json';
@@ -27,13 +33,13 @@ class Scan
     }
 
     /**
-     * Function takes in the name of a plugin and current version
-     * and will use wpscan and other services to check for vulnerabilities
+     * Function takes in the name of a plugin and will 
+     * use wpscan and other services to check for vulnerabilities.
      * 
      * @return Json
      * ['results'], ['code']
      */
-    public function scanPluginForVulnerabilities(String $plugin, String $version)
+    public function scanPluginForVulnerabilities(String $plugin)
     {
         $apiKey = $this->config['wpscan_key'];
         $headers = array(
@@ -45,10 +51,8 @@ class Scan
         $url = $this->wpscanUrl."plugins/".$plugin;    
 
         $response = $this->makeRequest($headers, $url);        
-        return [
-            'results' =>json_decode($response[0], true),
-            'code' => $response[1]
-        ];
+        
+        return $response;
     }
 
     private function makeRequest(Array $headers, String $url)
@@ -62,8 +66,12 @@ class Scan
 
         $response = curl_exec($client);
         $httpcode = curl_getinfo($client, CURLINFO_HTTP_CODE);
-        curl_close($client);        
-        return [$response, $httpcode];
+        curl_close($client);       
+        $returnObj = new Response();
+        $returnObj->results = json_decode($response, true);
+        $returnObj->code = $httpcode; 
+
+        return $returnObj;
     }
 
     private function fixString(String $str)
