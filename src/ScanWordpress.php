@@ -1,21 +1,17 @@
 <?php
 
-namespace Mason\Millypress\Wordpress;
+namespace Mason\Millypress;
 
-class Response
-{
-    public $results;
-    public $code;
-}
+use Mason\Millypress\Response;
 
-class Scan
+class ScanWordpress
 {
     private $output_file = 'wpscan-output.json';
     private $wpscanUrl = "https://wpscan.com/api/v3/";
 
     public function __construct()
     {
-        $this->config = require __DIR__.'/../../config/index.php';        
+        $this->config = require __DIR__.'/../config/index.php';        
     }
     /**
      * The function that will run when a user scans their website URL
