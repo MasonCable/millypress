@@ -4,7 +4,6 @@ namespace Mason\Millypress;
 use Mason\Millypress\Response;
 
 
-
 class ScanComposer
 {
     private $output_file = 'composer-output.json';
@@ -28,7 +27,7 @@ class ScanComposer
         for($i = 0; $i < count($data['packages'][$name]); $i++){
             $version = $data['packages'][$name][$i]['version'];
             if(!strpos($version, 'beta')){
-                return $version;                          
+                return $version;
             }                        
         }
                     

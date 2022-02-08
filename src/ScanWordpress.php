@@ -4,6 +4,8 @@ namespace Mason\Millypress;
 
 use Mason\Millypress\Response;
 
+
+
 class ScanWordpress
 {
     private $output_file = 'wpscan-output.json';
